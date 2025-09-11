@@ -91,7 +91,7 @@ BrainBuddyAI : Deep Learning Based Engagement Measuring Model (CNN → LSTM)
 | test set |  Accuracy | Recall | F1 |
 | --- |--- | --- | --- |
 | AIhub test set | 0.8088 | 0.8690 | 0.8149 |
-| 자체 개발 test set | 0.7470 | 0.7823 | 0.7239 |
+| 자체 개발 test set | 0.8103 | 0.8911 | 0.7993 |
 
 <br>
 
