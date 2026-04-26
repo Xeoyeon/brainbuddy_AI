@@ -84,6 +84,11 @@ We performed a 30-minute stress test to identify the system's breaking point and
 2. **Open Model (ramping-arrival-rate):** Tested arrival rate-based load up to 100 iters/s (~380 req/s). 
 
 
+<br>
+<p align="center">
+  <img  src="https://github.com/user-attachments/assets/f3eade59-3c50-475d-8be6-ea9c03aa0a27" width="400">
+</p>
+<br>
 
 
 
