@@ -29,42 +29,63 @@ BrainBuddy is an AI-driven service that measures user engagement levels from vid
 
 <br>
 
-## 🏗 System Architecture
+## 🏗 Model Architecture
 ### **1. AI Inference Pipeline**
 * **Input:** 30-frame video sequence
 * **Backbone:** **MobileNetV3-Large**
 * **Temporal Modeling:** **LSTM** 
 * **Output:** Binary (Engaged / Disengaged)
 
-### **2. Production-Ready Validation (Stress Test)**
-Collaborated with the Backend team to verify the AI model's impact on overall system reliability:
-* **Scalability:** Supported **200 concurrent users** with a **100% success rate** (0.0% failure).
-* **Latency:** Achieved an average response duration of **32ms** and guaranteed sub-second latency under peak load.
-* **Cost Efficiency:** Estimated an optimized monthly operational cost of **$765** for the verified capacity.
 
 <br>
 
 ## 🛠 Data Pipeline & Preprocessing
-I implemented a robust, end-to-end data pipeline to transform unprocessed, raw video footage into a structured, training-ready format. Unlike using pre-cleansed datasets, this project involved handling the entire lifecycle of data preparation to ensure model adaptability in real-world environments.
+I implemented a robust, end-to-end data pipeline to transform unprocessed, raw video footage into a structured, training-ready format.
 
-- Robust Face Detection: Integrated MediaPipe with a fallback mechanism (utilizing previous valid frames) to ensure stable real-time inference during occlusion.
+- **Robust Face Detection**: Integrated MediaPipe with a fallback mechanism (utilizing previous valid frames) to ensure stable real-time inference during occlusion.
 
-- Temporal Sampling: Standardized 30 frames per 10s window to maintain consistent temporal density for LSTM modeling, regardless of source FPS.
+- **Temporal Sampling**: Standardized 30 frames per 10s window to maintain consistent temporal density for LSTM modeling, regardless of source FPS.
 
-- Data Optimization: Automated labeling and utilized .pkl exports to maximize I/O efficiency during high-speed training and inference.
+- **Data Optimization**: Automated labeling and utilized .pkl exports to maximize I/O efficiency during high-speed training and inference.
 
 
 
 
 ## 📊 Model Performance
-To ensure a objective comparison between these models, we curated a custom-collected testset that reflects real-world variability. The following table summarizes the performance of the final selected model on both the AIHub benchmark and the custom-collected dataset:
+To ensure a objective comparison between these models, we curated **a custom-collected testset** that reflects real-world variability. The following table summarizes the performance of the final selected model on both the AIHub benchmark and the custom-collected dataset:
 
 | Test Set | Accuracy | Recall | F1-Score |
 | :--- | :--- | :--- | :--- |
-| **AIHub Test Set** | **80.88%** | 86.90% | 0.8149 |
+| **AIHub Test Set** | 80.88% | 86.90% | **0.8149** |
 | **Custom Real-world Set** | **81.03%** | **89.11%** | 0.7993 |
 
 <br>
+
+### 🌐 Production-Ready Validation (Load Test)
+To ensure the AI model's real-time viability, I collaborated with the Backend team to validate the system stability and cost-efficiency through k6 load testing.
+
+>* **Scalability:** Supported **200 concurrent users** with a **100% success rate** (0.0% failure).
+>* **Latency:** Achieved an average response duration of **32ms** and guaranteed sub-second latency under peak load.
+>* **Cost Efficiency:** Estimated an optimized monthly operational cost of **$765** for the verified capacity.
+
+<br>
+
+### Cloud Infrastructure Architecture
+* **Web Server:** Nginx-based server (AWS **t2.micro**)
+* **App Servers (WAS):** 4 instances of AWS **t3.medium**
+* **Database:** A single AWS **r7.ixlarge** instance
+
+<br>
+
+### **Load Testing with k6**
+We performed a 30-minute stress test to identify the system's breaking point and ensure consistent AI inference delivery. 
+
+1.  **Closed Model (ramping-vus):** Tested concurrency-based load up to 100 VUs. 
+2. **Open Model (ramping-arrival-rate):** Tested arrival rate-based load up to 100 iters/s (~380 req/s). 
+
+
+
+
 
 
 ## 💻 Quick Start
